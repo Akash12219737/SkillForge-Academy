@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const studentController_1 = require("../controllers/studentController");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+// Apply authenticate middleware to all student routes
+router.use(auth_1.authenticate);
+router.post('/enroll/:courseId', studentController_1.enrollCourse);
+router.get('/courses', studentController_1.getEnrolledCourses);
+router.get('/courses/:courseId/content', studentController_1.getEnrolledCourseContent);
+router.post('/lessons/:lessonId/progress', studentController_1.updateLessonProgress);
+router.get('/wishlist', studentController_1.getWishlist);
+router.post('/wishlist/:courseId', studentController_1.toggleWishlist);
+router.post('/reviews/:courseId', studentController_1.addReview);
+router.get('/certificates', studentController_1.getCertificates);
+router.post('/certificates/claim/:courseId', studentController_1.claimCertificate);
+router.get('/notes/:lessonId', studentController_1.getNote);
+router.post('/notes/:lessonId', studentController_1.saveNote);
+exports.default = router;
